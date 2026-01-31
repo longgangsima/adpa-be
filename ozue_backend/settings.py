@@ -1,5 +1,5 @@
 """
-Django settings for adpal_backend project.
+Django settings for ozue_backend project.
 """
 import os
 from pathlib import Path
@@ -38,9 +38,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "adpal_backend.urls"
-WSGI_APPLICATION = "adpal_backend.wsgi.application"
-ASGI_APPLICATION = "adpal_backend.asgi.application"
+ROOT_URLCONF = "ozue_backend.urls"
+WSGI_APPLICATION = "ozue_backend.wsgi.application"
+ASGI_APPLICATION = "ozue_backend.asgi.application"
 
 TEMPLATES = [
     {
@@ -61,7 +61,7 @@ TEMPLATES = [
 DATABASES = {
     "default": env.db(
         "DATABASE_URL",
-        default="postgres://adpal:adpal@localhost:5432/adpal",
+        default="postgres://ozue:ozue@localhost:5432/ozue",
     )
 }
 

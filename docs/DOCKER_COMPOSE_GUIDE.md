@@ -75,7 +75,7 @@ So “after run docker compose up --build” in terms of **building**: only the 
 5. **Service: db (PostgreSQL)**
    - Docker downloads the image **postgres:15** from Docker Hub (if not already on your machine).
    - Starts a container running **PostgreSQL 15**.
-   - Sets environment variables: database name `adpal`, user `adpal`, password `adpal`.
+   - Sets environment variables: database name `ozue`, user `ozue`, password `ozue`.
    - Maps port **5432** on your machine to port 5432 in the container (so your app can connect to “db:5432”).
    - Uses the `pgdata` volume so data is stored on your disk.
 
@@ -90,7 +90,7 @@ So “after run docker compose up --build” in terms of **building**: only the 
    - It mounts your **project folder** into `/app` in the container (so code changes on your machine are visible inside the container).
    - It sets environment variables the app needs:
      - **DJANGO_SETTINGS_MODULE** – tells Django which settings file to use.
-     - **DATABASE_URL** – how to connect to PostgreSQL: `postgres://adpal:adpal@db:5432/adpal`.
+     - **DATABASE_URL** – how to connect to PostgreSQL: `postgres://ozue:ozue@db:5432/ozue`.
      - **REDIS_URL** – how to connect to Redis: `redis://redis:6379/0`.
      - **DEBUG=1** – turns on Django’s debug mode for development.
 
@@ -109,7 +109,7 @@ So after this phase you have three running containers: **db**, **redis**, and **
 9. **First: `python manage.py migrate`**
    - **manage.py** – Django’s command-line helper (lives in your project root).
    - **migrate** – Reads your app’s **migrations** (instructions for the database schema) and applies them to the PostgreSQL database.
-   - In practice: creates/updates tables (e.g. for users, planners) in the `adpal` database so your Django models match the real database.
+   - In practice: creates/updates tables (e.g. for users, planners) in the `ozue` database so your Django models match the real database.
    - If this fails (e.g. database not ready), the whole command fails and the server won’t start.
 
 10. **Second: `python manage.py runserver 0.0.0.0:8000`**
@@ -127,7 +127,7 @@ So “after run docker compose up --build” in terms of **runtime**: the **web*
 | 1 | You run `docker compose up --build`. |
 | 2 | Docker builds the **web** image from `docker/Dockerfile` (Python 3.11, install deps from `requirements.txt`, copy your code). |
 | 3 | Docker creates/uses the **pgdata** volume for database data. |
-| 4 | **db** container starts (PostgreSQL 15, DB `adpal`, port 5432). |
+| 4 | **db** container starts (PostgreSQL 15, DB `ozue`, port 5432). |
 | 5 | **redis** container starts (Redis 7, port 6379). |
 | 6 | **web** container starts (depends on db and redis). |
 | 7 | Inside **web**: `python manage.py migrate` runs → database tables are created/updated. |
@@ -138,7 +138,7 @@ So “after run docker compose up --build” in terms of **runtime**: the **web*
 
 ## 5. Quick Reference
 
-- **Database (PostgreSQL):** host `localhost`, port **5432**, database `adpal`, user/password `adpal`.
+- **Database (PostgreSQL):** host `localhost`, port **5432**, database `ozue`, user/password `ozue`.
 - **Redis:** host `localhost`, port **6379**.
 - **Your app:** **http://localhost:8000** (Django + GraphQL, etc.).
 

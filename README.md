@@ -1,6 +1,6 @@
-# AdPal Backend
+# Ozue Backend
 
-A Django backend for an AdPal-like advertising calendar system with GraphQL API and real-time WebSocket subscriptions.
+A Django backend for an Ozue-like advertising calendar system with GraphQL API and real-time WebSocket subscriptions.
 
 ## Tech Stack
 
@@ -36,7 +36,7 @@ This starts PostgreSQL, Redis, and the Django app. The API is available at:
 
 ### Local development (without Docker)
 
-1. Create a PostgreSQL database named `adpal` and a Redis instance.
+1. Create a PostgreSQL database named `ozue` and a Redis instance.
 
 2. Create and activate a virtual environment:
 
@@ -64,7 +64,7 @@ This starts PostgreSQL, Redis, and the Django app. The API is available at:
    For production-style ASGI (Daphne):
 
    ```bash
-   daphne -b 0.0.0.0 -p 8000 adpal_backend.asgi:application
+   daphne -b 0.0.0.0 -p 8000 ozue_backend.asgi:application
    ```
 
 ## GraphQL Examples
@@ -138,7 +138,7 @@ adpa-be/
 ├── manage.py
 ├── requirements.txt
 ├── docker-compose.yml
-├── adpal_backend/
+├── ozue_backend/
 │   ├── settings.py
 │   ├── asgi.py
 │   ├── urls.py
