@@ -1,0 +1,10 @@
+Django==4.2.11
+psycopg2-binary==2.9.9
+django-environ==0.11.2
+channels==4.0.0
+channels-redis==4.2.0
+
+strawberry-graphql[debug]==0.235.1
+strawberry-graphql-django==0.44.0
+
+PyJWT==2.8.0
