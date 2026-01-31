@@ -1,3 +1,4 @@
+import uuid
 from django.conf import settings
 from django.db import models
 
@@ -5,6 +6,7 @@ from django.db import models
 class MediaPlan(models.Model):
     """Top-level media plan containing campaigns."""
 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -16,6 +18,7 @@ class MediaPlan(models.Model):
 class Campaign(models.Model):
     """Campaign within a media plan."""
 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     plan = models.ForeignKey(MediaPlan, on_delete=models.CASCADE, related_name="campaigns")
     name = models.CharField(max_length=200)
     start_date = models.DateField()
@@ -30,6 +33,7 @@ class Placement(models.Model):
     Where an ad appears: page/section/slot, etc.
     """
 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, related_name="placements")
     page = models.CharField(max_length=120)  # e.g. "Home"
     section = models.CharField(max_length=120)  # e.g. "Hero Banner"
@@ -49,6 +53,7 @@ class CalendarEvent(models.Model):
         BOOKED = "BOOKED"
         CANCELED = "CANCELED"
 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     placement = models.ForeignKey(Placement, on_delete=models.CASCADE, related_name="events")
     title = models.CharField(max_length=200)
     start_ts = models.DateTimeField()

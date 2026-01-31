@@ -3,10 +3,10 @@ from datetime import datetime
 import strawberry
 from django.utils.timezone import now
 
-from apps.planner.models import CalendarEvent, Placement
+from apps.planner.models import CalendarEvent, Placement, MediaPlan
 from apps.realtime.events import publish_calendar_event
 
-from .types import CalendarEventType
+from .types import CalendarEventType, MediaPlanType
 
 
 def require_user(info: strawberry.Info):
@@ -22,7 +22,7 @@ def require_user(info: strawberry.Info):
 
 @strawberry.input
 class CreateEventInput:
-    placement_id: int
+    placement_id: strawberry.ID
     title: str
     start_ts: datetime
     end_ts: datetime
@@ -30,7 +30,7 @@ class CreateEventInput:
 
 @strawberry.input
 class UpdateEventInput:
-    event_id: int
+    event_id: strawberry.ID
     title: str | None = None
     start_ts: datetime | None = None
     end_ts: datetime | None = None
@@ -39,6 +39,12 @@ class UpdateEventInput:
 
 @strawberry.type
 class Mutation:
+    @strawberry.mutation
+    def create_media_plan(self, info: strawberry.Info, name: str) -> MediaPlanType:
+        user = require_user(info)
+        plan = MediaPlan.objects.create(name=name, owner=user)
+        return plan
+
     @strawberry.mutation
     def create_calendar_event(
         self, info: strawberry.Info, data: CreateEventInput
@@ -93,7 +99,7 @@ class Mutation:
 
     @strawberry.mutation
     def cancel_calendar_event(
-        self, info: strawberry.Info, event_id: int
+        self, info: strawberry.Info, event_id: strawberry.ID
     ) -> CalendarEventType:
         user = require_user(info)
 

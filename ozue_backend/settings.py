@@ -61,7 +61,7 @@ TEMPLATES = [
 DATABASES = {
     "default": env.db(
         "DATABASE_URL",
-        default="postgres://ozue:ozue@localhost:5432/ozue",
+        default="postgres://ozue:ozue@localhost:5434/ozue",
     )
 }
 

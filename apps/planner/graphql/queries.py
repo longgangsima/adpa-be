@@ -17,7 +17,7 @@ class Query:
         info: strawberry.Info,
         start: datetime,
         end: datetime,
-        plan_id: Optional[int] = None,
+        plan_id: Optional[strawberry.ID] = None,
         status: Optional[str] = None,
         page: Optional[str] = None,
         section: Optional[str] = None,
